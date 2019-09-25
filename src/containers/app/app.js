@@ -15,18 +15,20 @@ const store = createStore(
   applyMiddleware(thunkMiddleware, loggerMiddleware)
 )
 
-// load products to store
-store.dispatch(loadProductsAndSetToStore());
+export default class App extends React.Component {
+  componentDidMount() {
+    store.dispatch(loadProductsAndSetToStore());
+  }
 
-const App = () => {
-  return (
-    <Provider store={store}>
-      <div className="container">
-        <div className="row">
-          <TodoList />
-        </div> 
-      </div>
-    </Provider>
-  )
+  render () {
+    return (
+      <Provider store={store}>
+        <div className="container">
+          <div className="row">
+            <TodoList />
+          </div> 
+        </div>
+      </Provider>
+    );
+  }
 };
-export default App;

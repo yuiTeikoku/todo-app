@@ -1,4 +1,4 @@
-import { DataLoader } from '../lib';
+import { DataLoader } from '../utils';
 
 const setProducts = (products) => ({type: "SET_PRODUCTS", products: products});
 
