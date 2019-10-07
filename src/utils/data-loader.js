@@ -8,6 +8,7 @@ export default class DataLoader {
     async getData(url) {
         const res = await fetch(url);
         const data = await res.json();
+        
         return await data;
     }
 }

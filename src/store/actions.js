@@ -2,18 +2,22 @@ import { DataLoader } from '../utils';
 
 const setProducts = (products) => ({type: "SET_PRODUCTS", products: products});
 
+const loader = new DataLoader();
 const loadProductsAndSetToStore = () => dispatch => {
-    const loader = new DataLoader();
-    loader.getTestData().then(data => {
+    loader.getData("http://localhost:3000/api/products")
+    .then(data => {
         dispatch(setProducts(data));
+    })
+    .catch((...err) => {
+        console.log("Ошибка при загрузке данных");
     });
 }
 
-const removeProduct = (prodId) => ({type: "REMOVE_PRODUCT", prodId});
-const addProduct = (product) => ({type: "ADD_PRODUCT", product});
+const removeFromCart = (prodId) => ({type: "REMOVE_FROM_CART", prodId});
+const addToCart = (product) => ({type: "ADD_TO_CART", product});
 
 export {
     loadProductsAndSetToStore, 
-    removeProduct,
-    addProduct
+    removeFromCart,
+    addToCart
 }

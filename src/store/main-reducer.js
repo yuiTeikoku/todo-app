@@ -1,5 +1,6 @@
 const initState = {
-    products: null
+    products: null,
+    cart: []
 };
 
 const mainReducer = (state = initState, action) => {
@@ -9,15 +10,15 @@ const mainReducer = (state = initState, action) => {
                 ...state, 
                 products: action.products
             };
-        case "REMOVE_PRODUCT": 
+        case "REMOVE_FROM_CART": 
             return {
                 ...state, 
-                products: state.products.filter(item => item.id !== action.prodId)
+                products: state.cart.filter(item => item.id !== action.prodId)
             }    
-        case "ADD_PRODUCT":
+        case "ADD_TO_CART":
             return {
                 ...state,
-                products: [...state.products, action.product]
+                cart: [...state.cart, action.product]
             }
         default:
             return state;
