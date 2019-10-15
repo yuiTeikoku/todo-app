@@ -1,5 +1,6 @@
 const initState = {
     products: null,
+    user: null,
     cart: []
 };
 
@@ -10,6 +11,11 @@ const mainReducer = (state = initState, action) => {
                 ...state, 
                 products: action.products
             };
+        case "SET_USER": 
+            return {
+                ...state, 
+                user: action.user
+            };    
         case "REMOVE_FROM_CART": 
             return {
                 ...state, 

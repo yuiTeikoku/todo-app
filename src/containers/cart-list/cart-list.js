@@ -4,8 +4,6 @@ import {Link} from 'react-router-dom';
 
 import TodoList from '../../components/todo-list';
 
-
-
 const withChildrenFunction = (children) => (View) => {
     return (props) => (<View {...props}>{children}</View>);
 }

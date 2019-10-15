@@ -1,14 +1,31 @@
-import { DataLoader } from '../utils';
-
-const setProducts = (products) => ({type: "SET_PRODUCTS", products: products});
-
-const loader = new DataLoader();
+const setProducts = (products) => ({type: "SET_PRODUCTS", products});
 const loadProductsAndSetToStore = () => dispatch => {
-    loader.getData("http://localhost:3000/api/products")
+    fetch("http://localhost:3000/api/products")
+    .then(res => res.json())
     .then(data => {
         dispatch(setProducts(data));
     })
-    .catch((...err) => {
+    .catch(() => {
+        console.log("Ошибка при загрузке данных");
+    });
+}
+
+const setUser = (user) => ({type: "SET_USER", user});
+const loadUserBySessionAndSetToStore = () => dispatch => {
+    const session = localStorage.getItem('session');
+    const requestOptions = {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ session })
+    };
+
+    fetch("http://localhost:3000/api/getUserBySession", requestOptions)
+    .then(res => res.text())
+    .then(data => {
+        const jsonData = JSON.parse(data);
+        dispatch(setUser(jsonData));
+    })
+    .catch(() => {
         console.log("Ошибка при загрузке данных");
     });
 }
@@ -18,6 +35,7 @@ const addToCart = (product) => ({type: "ADD_TO_CART", product});
 
 export {
     loadProductsAndSetToStore, 
+    loadUserBySessionAndSetToStore,
     removeFromCart,
     addToCart
 }
