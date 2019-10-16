@@ -9,8 +9,22 @@ const withChildrenFunction = (children) => (View) => {
     return (props) => (<View {...props}>{children}</View>);
 }
 
-const productsRenderItems = (item, {addToCart}) => {
+const productsRenderItems = (item, {userId, addToCart}) => {
 	const {id, name, width, depth, height, dimUnit, description,  productPicUrl} = item;
+
+	const addToCartClick = (item, userId) => {
+		const requestOptions = {
+			method: 'POST',
+			headers: { 'Content-Type': 'application/json' },
+			body: JSON.stringify({ userId, product: item })
+		};
+
+		return fetch('/api/addProductToCart', requestOptions) // add to db
+		.then(res => res.text())
+		.then(cartItem => {
+			addToCart(JSON.parse(cartItem)); // and store
+		}); 
+	}
 
 	return (
 		<div className="d-flex justify-content-between align-items-center">
@@ -20,7 +34,7 @@ const productsRenderItems = (item, {addToCart}) => {
 					<div> Поместить в корзину </div>
                     <svg 
                         className="cart-icon"
-						onClick = {() => addToCart(item)}
+						onClick = {() => addToCartClick(item, userId)}
 						viewBox="0 0 510 510"
 					>
 						<path 
@@ -49,5 +63,5 @@ const productsRenderItems = (item, {addToCart}) => {
 
 const ProductsList = withChildrenFunction(productsRenderItems)(TodoList);
 
-const mapStateToProps = state => ({listData: state.products});
+const mapStateToProps = state => ({listData: state.products, userId: state.user._id});
 export default connect(mapStateToProps, {addToCart})(ProductsList);

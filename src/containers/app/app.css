@@ -1,3 +1,12 @@
 .cart-icon {
     width: 30px;
 }
+
+button a {
+    color: #fff;
+}
+
+button a:hover {
+    color: #fff;
+    text-decoration: none;
+}

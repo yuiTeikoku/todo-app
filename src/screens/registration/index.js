@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-
+import {Link} from 'react-router-dom';
 const RegistrationPage = () => {
     let [login, setLogin] = useState("");
     let [password, setPassword] = useState("");
@@ -18,7 +18,8 @@ const RegistrationPage = () => {
         fetch('/auth/registration', requestOptions)
         .then((res) => res.text())
         .then((serverMessage) => {
-            console.log(serverMessage);
+            alert(serverMessage);
+            window.location = '/';
         })
         .catch((err) => {
             console.error("Server error: ", err);
@@ -26,7 +27,7 @@ const RegistrationPage = () => {
     }
 
     return (
-        <div className="card">
+        <div className="card m-4">
             <form className="card-body">
                 <h5 className="card-title">Registration</h5>
                 <div className="form-group">
@@ -59,10 +60,13 @@ const RegistrationPage = () => {
                 </div>
                 <button 
                     type="submit" 
-                    className="btn btn-primary"
+                    className="btn btn-success"
                     onClick = {(e) => {e.preventDefault(); sendData(login, password, comfPass);}}
                 >
                     Submit
+                </button>
+                <button type="submit" className="btn btn-dark m-2">
+                    <Link to='/'>Back</Link>
                 </button>
             </form>
         </div>

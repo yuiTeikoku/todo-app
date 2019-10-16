@@ -16,15 +16,21 @@ const mainReducer = (state = initState, action) => {
                 ...state, 
                 user: action.user
             };    
-        case "REMOVE_FROM_CART": 
+        case "SET_CART": 
             return {
                 ...state, 
-                products: state.cart.filter(item => item.id !== action.prodId)
+                cart: action.cart
+            }; 
+        case "REMOVE_FROM_CART": 
+            console.log(action)
+            return {
+                ...state, 
+                cart: state.cart.filter(item => item._id !== action.itemId)
             }    
         case "ADD_TO_CART":
             return {
                 ...state,
-                cart: [...state.cart, action.product]
+                cart: [...state.cart, action.cartItem]
             }
         default:
             return state;
