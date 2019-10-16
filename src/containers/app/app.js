@@ -43,38 +43,38 @@ export default class App extends React.Component {
 
   render () {
     const {cartLength, user} = this.state;
+
+    if (user === null)
+      return <div>Loading...</div>
     
     return (
       <Provider store={store}>
         <BrowserRouter>
           <div className="container"> 
-            {user && 
+            {
+              user._id && 
               <Header cartLength={cartLength} />
             } 
-            <Switch>
-              
-              { 
-                !user && (() => (
-                <React.Fragment>
-                  <Route path='/' exact component={LoginPage} />
-                  <Route path='/registration' exact component={RegistrationPage} />
-                </React.Fragment>
-                ))()
-              }
-              
-              {
-                user && (() => (
-                <React.Fragment>
-                  <Route path='/' exact component={HomePage} />
-                  <Route path='/products' exact component={ProductsPage} />
-                  <Route path='/cart' exact component={CartPage} />   
-                </React.Fragment>             
-                ))()
-              }    
-
-              <Route component={ErrorPage} />
-            </Switch>
-          
+            { 
+              !user._id && (
+              <Switch>
+                <Route path='/' exact component={LoginPage} />
+                <Route path='/registration' exact component={RegistrationPage} />
+                <Route component={ErrorPage} />
+              </Switch>
+              )
+            }
+            
+            {
+              user._id && (
+              <Switch>
+                <Route path='/' exact component={HomePage} />
+                <Route path='/products' exact component={ProductsPage} />
+                <Route path='/cart' exact component={CartPage} />  
+                <Route component={ErrorPage} /> 
+              </Switch>             
+              )
+            }         
           </div>
         </BrowserRouter>
       </Provider>

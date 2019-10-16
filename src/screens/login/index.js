@@ -15,7 +15,7 @@ const LoginPage = () => {
         .then((res) => res.text())
         .then((serverMessage) => {
             const sessionId = JSON.parse(serverMessage);
-            localStorage.setItem('session', sessionId._id);
+            localStorage.setItem('session', sessionId);
             window.location = '/';
         })
         .catch((err) => {

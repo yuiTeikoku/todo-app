@@ -22,8 +22,8 @@ const loadUserBySessionAndSetToStore = () => dispatch => {
     fetch("http://localhost:3000/api/getUserBySession", requestOptions)
     .then(res => res.text())
     .then(data => {
-        const jsonData = JSON.parse(data);
-        dispatch(setUser(jsonData));
+        const { _id } = JSON.parse(data);
+        dispatch(setUser({ _id }));
     })
     .catch(() => {
         console.log("Ошибка при загрузке данных");
