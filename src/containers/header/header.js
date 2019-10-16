@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import {Link} from 'react-router-dom';
 
 const Header = ({cartLength}) => (
@@ -15,4 +16,5 @@ const Header = ({cartLength}) => (
     </ul>
 );
 
-export default Header;
+const mapStateToProps = state => ({cartLength: state.cart.length})
+export default connect(mapStateToProps)(Header);

@@ -1,12 +1,12 @@
 const setProducts = (products) => ({type: "SET_PRODUCTS", products});
 const loadProductsAndSetToStore = () => dispatch => {
-    fetch("http://localhost:3000/api/products")
+    return fetch("http://localhost:3000/api/products")
     .then(res => res.json())
     .then(data => {
         dispatch(setProducts(data));
     })
-    .catch(() => {
-        console.log("Ошибка при загрузке данных");
+    .catch(err => {
+        console.error("Ошибка при загрузке данных: ", err);
     });
 }
 
@@ -19,14 +19,17 @@ const loadUserBySessionAndSetToStore = () => dispatch => {
         body: JSON.stringify({ session })
     };
 
-    fetch("http://localhost:3000/api/getUserBySession", requestOptions)
+    return fetch("http://localhost:3000/api/getUserBySession", requestOptions)
     .then(res => res.text())
     .then(data => {
-        const { _id } = JSON.parse(data);
-        dispatch(setUser({ _id }));
+        const _id = JSON.parse(data);
+        if (typeof _id === "string")
+            return dispatch(setUser({ _id }));
+        
+        dispatch(setUser({})); 
     })
-    .catch(() => {
-        console.log("Ошибка при загрузке данных");
+    .catch(err => {
+        console.error("Ошибка при загрузке данных: ", err);
     });
 }
 
