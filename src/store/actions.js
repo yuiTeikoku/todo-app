@@ -48,10 +48,13 @@ const loadCartByUserIdAndSetToStore = (userId) => dispatch => {
 const removeFromCart = itemId => ({type: "REMOVE_FROM_CART", itemId});
 const addToCart = cartItem => ({type: "ADD_TO_CART", cartItem});
 
+const changeCurrPageAtTarget = (target, nextPage) => ({type: "CHANGE_CURR_PAGE", props: {target, nextPage} });
+
 export {
     loadProductsAndSetToStore, 
     loadUserBySessionAndSetToStore,
     loadCartByUserIdAndSetToStore,
     removeFromCart,
-    addToCart
+    addToCart,
+    changeCurrPageAtTarget
 }

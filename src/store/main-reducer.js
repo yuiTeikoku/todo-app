@@ -1,7 +1,24 @@
 const initState = {
     products: null,
     user: null,
-    cart: []
+    cart: [],
+    filter: {
+        products: {
+            pagination: {
+                show: 5,
+                currPage: 0
+            },
+            category: []
+        },
+
+        cart: {
+            pagination: {
+                show: 5,
+                currPage: 0
+            },
+            category: []
+        }
+    }
 };
 
 const mainReducer = (state = initState, action) => {
@@ -22,7 +39,6 @@ const mainReducer = (state = initState, action) => {
                 cart: action.cart
             }; 
         case "REMOVE_FROM_CART": 
-            console.log(action)
             return {
                 ...state, 
                 cart: state.cart.filter(item => item._id !== action.itemId)
@@ -31,6 +47,14 @@ const mainReducer = (state = initState, action) => {
             return {
                 ...state,
                 cart: [...state.cart, action.cartItem]
+            }
+        case "CHANGE_CURR_PAGE":
+            let newFilter = {...state.filter}
+            newFilter[action.props.target].pagination.currPage = action.props.nextPage;
+                        
+            return {
+                ...state,
+                filter: { ...newFilter }
             }
         default:
             return state;

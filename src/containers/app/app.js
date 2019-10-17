@@ -33,17 +33,14 @@ const App = () => {
   const [user, setUser] = useState(null);
 
   useEffect(() => {
-    // load products
-    store.dispatch(loadProductsAndSetToStore());
+    store.dispatch(loadProductsAndSetToStore()); // load products
 
-    // load user by session
-    store.dispatch(loadUserBySessionAndSetToStore())
+    store.dispatch(loadUserBySessionAndSetToStore()) // load user by session
     .then(() => {
       const {user} = store.getState();
       setUser(user);
 
-      // load cart by userId
-      store.dispatch(loadCartByUserIdAndSetToStore(user._id));
+      store.dispatch(loadCartByUserIdAndSetToStore(user._id)); // load cart by userId
     });
   }, []);
 

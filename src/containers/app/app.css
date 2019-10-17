@@ -10,3 +10,30 @@ button a:hover {
     color: #fff;
     text-decoration: none;
 }
+
+.list-group {
+    width: 100%;
+}
+
+.pagination-main {
+    width: 100%;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.page-item:first-child .page-link {
+    border-radius: 0 !important;
+}
+
+.page-item:last-child .page-link {
+    border-radius: 0 !important;
+}
+
+.page-item .page-link {
+    cursor: pointer;
+    margin: 3px !important;
+}
+
+.pagination {
+    flex-wrap: wrap;
+}

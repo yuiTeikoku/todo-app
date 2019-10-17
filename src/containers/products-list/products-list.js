@@ -63,5 +63,19 @@ const productsRenderItems = (item, {userId, addToCart}) => {
 
 const ProductsList = withChildrenFunction(productsRenderItems)(TodoList);
 
-const mapStateToProps = state => ({listData: state.products, userId: state.user._id});
+const dataAfterFilter = (filter, listData) => {
+	if (listData === null)
+		return null;
+
+	let result = [...listData];
+	if (filter.category.length) {
+		result = result.filter(item => filter.category.find(el => el === item))
+	}
+
+	const N = filter.pagination.show;
+	const i = filter.pagination.currPage;
+	return result.slice(i*N, (i+1)*N);
+}	
+
+const mapStateToProps = state => ({listData: dataAfterFilter(state.filter.products, state.products), userId: state.user._id});
 export default connect(mapStateToProps, {addToCart})(ProductsList);
